@@ -1,0 +1,224 @@
+@import url('css_reset.css');
+body{
+  font-family: helvetica,arial,sans-serif;
+}
+#wrapper{
+  max-width: 1200px;
+  min-width: 600px;
+  margin: 0 auto;
+}
+nav{
+  width:335px;
+  float: left;
+  background-color: #464f77;
+  height: 100%;
+  padding-top: 70px;
+  font-size: 16px;
+}
+nav ul li{
+  color:#b2b5c3;
+  padding: 13px 0 13px 136px;
+}
+nav ul li a{
+  text-decoration: none;
+  color:#b2b5c3;
+}
+#todos{
+  margin-bottom: 55px;
+}
+
+nav h2{
+  background: transparent url('../assets/all_todos.png') 100px 0 no-repeat;
+  color:#d8d9e0;
+  font-size:18px;
+}
+
+#todos h2{
+  padding:5px 0 15px 136px;
+}
+
+.active{
+  background-color: #383f5f;
+  color: #ffffff;
+}
+
+#completed h2{
+  padding:5px 20px 15px 136px;
+}
+
+nav span{
+  display: inline-block;
+  margin: 0 0 0 73px;
+  padding: 3px 6px;
+  border-radius: 100%;
+  background-color: #6b7292;
+  color:#ccced8;
+  font-size: 14px;
+}
+
+#todos span.total{
+  margin: 0 0 0 63px;
+}
+
+#completed span.total{
+  margin: 0 0 0 47px;
+}
+
+nav li.active span{
+  background-color: #148fd5;
+  color:#ffffff;
+}
+
+nav h2 span{
+  margin: 0 0 0 62px;
+  border-radius: 10px;
+}
+main{
+  overflow: hidden;
+  max-width: 865px;
+  height: 100%;
+  padding: 0 100px 0 20px;
+  box-sizing: border-box;
+}
+#menu{
+  padding: 22px 0 35px 12px;
+  visibility: hidden;
+}
+main h2{
+  display: inline-block;
+  font-size: 21px;
+  padding: 12px 0 15px 12px;
+  color: #050505;
+}
+span.blue{
+  display: inline-block;
+  margin: 12px 0 0 20px;
+  padding: 3px 6px;
+  border-radius: 100%;
+  background-color: #148fd5;
+  color:#ffffff;
+  font-size: 14px;
+  vertical-align: top;
+}
+main p{
+  background: transparent url('../assets/add.png') 12px 0px no-repeat;
+  padding:0px 0 25px 37px;
+}
+main p a{
+  color:#148fd5;
+  font-size: 16px;
+  text-decoration: none;
+}
+main li{
+  padding: 18px 0 18px 0;
+  border-top: 1px solid #e7e7e7;
+}
+main li img{
+  float: right;
+  display: inline-block;
+}
+main li a{
+  text-decoration: none;
+  font-size: 16px;
+  color:#060606;
+  display: inline-block;
+  background: transparent url('../assets/checkbox.png') 12px 0px no-repeat;
+  padding-left: 38px;
+  box-sizing: border-box;
+}
+main li a.completed{
+  font-size: 16px;
+  color:#b3b3b3;
+  background: transparent url('../assets/checked.png') 12px 0px no-repeat;
+  padding-left: 38px;
+}
+
+.completed{
+  text-decoration: line-through;
+}
+main li a:hover{
+  color:#148fd5;
+}
+
+main ul img{
+  cursor: pointer;
+}
+
+@media (max-width:768px){
+  main #menu{
+    visibility: visible;
+  }
+}
+
+.modalBack{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0,0,0,.4);
+  display: none;
+}
+.modal{
+  width: 576px;
+  height: 400px;
+  color: #060606;
+  font-size: 16px;
+  padding: 36px 30px 0 30px;
+  box-sizing: border-box;
+  display: none;
+  z-index: 2;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin: 0 0 0 -288px;
+  background-color: #ffffff;
+}
+.modal input[type='text']{
+  width: 396px;
+  height: 35px;
+  margin: 0 0 5px 75px;
+}
+.modal #hint{
+  color: red;
+  margin-left: 110px;
+}
+.modal #date{
+  margin-right: 37px;
+}
+.modal select{
+  width: 115px;
+  height: 35px;
+  margin: 20px 0 25px 0;
+}
+.modal span{
+  margin: 0 6px;
+}
+#textarea{
+  display: inline-block;
+}
+.modal textarea{
+  width: 396px;
+  height: 144px;
+  margin: 0 0 25px 24px;
+  vertical-align: top;
+}
+.modal #save{
+  margin-left: 108px;
+}
+.modal input[type='submit'], #markComplete{
+  background-color: #148fd5;
+  color:#ffffff;
+  height: 35px;
+  width: 184px;
+  border: none;
+  border-radius: 5px;
+  margin: 0 9px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hide{
+  display: none;
+}
