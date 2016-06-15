@@ -41,9 +41,21 @@ var TodoView = Backbone.View.extend({
 
   todo_tpl: Handlebars.compile($("#main_list_template").html()),
 
+  events: {
+    "click .delete": "deleteItem"
+  },
+
+  initialize: function(){
+    this.listenTo(this.model, "destroy", this.remove);
+  },
+
   render: function(){
     this.$el.html(this.todo_tpl(this.model.toJSON()));
     return this;
+  },
+
+  deleteItem: function(){
+    this.model.destroy();
   }
 });
 
