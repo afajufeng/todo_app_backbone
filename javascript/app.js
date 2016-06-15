@@ -36,6 +36,17 @@ var TodoList = Backbone.Collection.extend({
 
 var todolist = new TodoList;
 
+var TodoView = Backbone.View.extend({
+  tagName: "li",
+
+  todo_tpl: Handlebars.compile($("#main_list_template").html()),
+
+  render: function(){
+    this.$el.html(this.todo_tpl(this.model.toJSON()));
+    return this;
+  }
+});
+
 var AppView = Backbone.View.extend({
   el: $("body"),
 
@@ -43,6 +54,10 @@ var AppView = Backbone.View.extend({
     this.buildDate("#day", 1, 30);
     this.buildDate("#month", 1, 12);
     this.buildDate("#year", 2000, 2016);
+
+    this.listenTo(todolist, "add", this.addOne);
+
+    todolist.fetch();
   },
 
   events: {
@@ -80,6 +95,11 @@ var AppView = Backbone.View.extend({
     });
     item.date = item.year + "/" + item.month + "/" + item.day;
     return item;
+  },
+
+  addOne: function(todo){
+    var view = new TodoView({model: todo});
+    this.$("main ul").append(view.render().el);
   },
 
   showModal: function(){
