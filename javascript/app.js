@@ -1,3 +1,37 @@
+var Todo = Backbone.Model.extend({
+  defaults: function(){
+    return {
+      title: "",
+      year: "",
+      month: "",
+      day: "",
+      description: "",
+      completed: false,
+      order: Todos.nextOrder()
+    };
+  }
+});
+
+var TodoList = Backbone.Collection.extend({
+  model: Todo,
+
+  completed: function(){
+    return this.where({completed: true});
+  },
+
+  remaining: function(){
+    return this.where({completed: false});
+  },
+
+  nextOrder: function(){
+    if(!this.length) return 1;
+    return this.last().get("order") + 1;
+  },
+
+  comparator: "order"
+});
+
+var Todos = new TodoList;
 
 var AppView = Backbone.View.extend({
   el: $("body"),
@@ -13,7 +47,7 @@ var AppView = Backbone.View.extend({
     "click .modalBack": "hideModal"
   },
 
-  buildDate: function buildSelect(period, num_start, num_end){
+  buildDate: function (period, num_start, num_end){
     var text ="";
     for(var i = num_start; i <= num_end; i++){
       text += "<option>" + i + "</option>";
