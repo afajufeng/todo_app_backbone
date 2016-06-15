@@ -7,13 +7,16 @@ var Todo = Backbone.Model.extend({
       day: "",
       description: "",
       completed: false,
-      order: Todos.nextOrder()
+      date: "",
+      order: todolist.nextOrder()
     };
   }
 });
 
 var TodoList = Backbone.Collection.extend({
   model: Todo,
+
+  localStorage: new Backbone.LocalStorage("todo_app"),
 
   completed: function(){
     return this.where({completed: true});
@@ -31,7 +34,7 @@ var TodoList = Backbone.Collection.extend({
   comparator: "order"
 });
 
-var Todos = new TodoList;
+var todolist = new TodoList;
 
 var AppView = Backbone.View.extend({
   el: $("body"),
@@ -44,7 +47,8 @@ var AppView = Backbone.View.extend({
 
   events: {
     "click #addItem": "addItem",
-    "click .modalBack": "hideModal"
+    "click .modalBack": "hideModal",
+    "click #save": "saveNew"
   },
 
   buildDate: function (period, num_start, num_end){
@@ -57,9 +61,25 @@ var AppView = Backbone.View.extend({
 
   addItem: function(e){
     e.preventDefault();
-    var new_item = true;
     $("#markComplete").hide();
     this.showModal();
+  },
+
+  saveNew: function(e){
+    e.preventDefault();
+    todolist.create(this.sanitizeFormData());
+    this.hideModal();
+  },
+
+  sanitizeFormData: function(){
+    var array = $("form").serializeArray();
+    var item = {};
+
+    array.forEach(function(element){
+      item[element.name] = element.value;
+    });
+    item.date = item.year + "/" + item.month + "/" + item.day;
+    return item;
   },
 
   showModal: function(){
