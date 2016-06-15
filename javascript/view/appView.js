@@ -63,5 +63,3 @@ var AppView = Backbone.View.extend({
     $(".modal, .modalBack").fadeOut();
   }
 });
-
-var app = new AppView;
