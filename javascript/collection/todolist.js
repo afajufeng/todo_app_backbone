@@ -29,6 +29,10 @@ var TodoList = Backbone.Collection.extend({
     };
   },
 
+  clicked: function(){
+    return this.where({clicked: true})[0];
+  },
+
   comparator: "order"
 });
 

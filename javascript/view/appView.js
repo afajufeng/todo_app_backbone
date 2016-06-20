@@ -15,7 +15,7 @@ var AppView = Backbone.View.extend({
   events: {
     "click #addItem": "addItem",
     "click .modalBack": "hideModal",
-    "click #save": "saveNew",
+    "click #save": "saveItem",
     "click #markComplete": "markComplete"
   },
 
@@ -34,9 +34,17 @@ var AppView = Backbone.View.extend({
     this.showModal();
   },
 
-  saveNew: function(e){
+  saveItem: function(e){
     e.preventDefault();
-    todolist.create(this.sanitizeFormData());
+
+    var todo = todolist.clicked();
+    var formData = this.sanitizeFormData();
+
+    if(todo){
+      todo.save(formData);
+    } else{
+      todolist.create(formData);
+    }
     this.hideModal();
   },
 
@@ -61,6 +69,7 @@ var AppView = Backbone.View.extend({
 
     var todo = todolist.where({clicked: true})[0];
     todo.save({class: "completed"});
+    todo.save(this.sanitizeFormData());
     this.hideModal();
   },
 
