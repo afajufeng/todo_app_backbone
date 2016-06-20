@@ -10,6 +10,7 @@ var TodoView = Backbone.View.extend({
 
   initialize: function(){
     this.listenTo(this.model, "destroy", this.remove);
+    this.listenTo(this.model, "change", this.render);
   },
 
   render: function(){
@@ -23,18 +24,14 @@ var TodoView = Backbone.View.extend({
 
   loadSavedItem: function(e){
     e.preventDefault();
+    $("#markComplete").show();
     app.showModal();
-    this.loadDataToForm(e);
+    this.model.set({clicked: true});
+    this.loadDataToForm();
   },
 
-  loadDataToForm: function(e){
-    var todo = {
-      title: this.model.get("title"),
-      year: this.model.get("year"),
-      month: this.model.get("month"),
-      day: this.model.get("day"),
-      description: this.model.get("description")
-    };
+  loadDataToForm: function(){
+    var todo = todolist.clickedItem();
 
     for(var prop in todo){
       var id = "#" + prop;

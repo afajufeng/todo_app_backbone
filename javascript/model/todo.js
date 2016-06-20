@@ -8,6 +8,7 @@ var Todo = Backbone.Model.extend({
       description: "",
       completed: false,
       date: "",
+      clicked: false,
       order: todolist.nextOrder()
     };
   }

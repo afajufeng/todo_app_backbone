@@ -60,6 +60,9 @@ var AppView = Backbone.View.extend({
   },
 
   hideModal: function(){
+    var clicked = todolist.where({clicked: true})[0];
+
+    if(clicked){ clicked.set({clicked: false}); }
     $(".modal, .modalBack").fadeOut();
   }
 });
