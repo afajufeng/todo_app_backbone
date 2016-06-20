@@ -5,11 +5,11 @@ var TodoList = Backbone.Collection.extend({
   localStorage: new Backbone.LocalStorage("todo_app"),
 
   completed: function(){
-    return this.where({completed: true});
+    return this.where({class: "completed"});
   },
 
   remaining: function(){
-    return this.where({completed: false});
+    return this.where({class: "remaining"});
   },
 
   nextOrder: function(){

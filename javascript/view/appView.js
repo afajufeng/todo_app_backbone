@@ -15,7 +15,8 @@ var AppView = Backbone.View.extend({
   events: {
     "click #addItem": "addItem",
     "click .modalBack": "hideModal",
-    "click #save": "saveNew"
+    "click #save": "saveNew",
+    "click #markComplete": "markComplete"
   },
 
   buildDate: function (period, num_start, num_end){
@@ -53,6 +54,14 @@ var AppView = Backbone.View.extend({
   addOne: function(todo){
     var view = new TodoView({model: todo});
     this.$("main ul").append(view.render().el);
+  },
+
+  markComplete: function(e){
+    e.preventDefault();
+
+    var todo = todolist.where({clicked: true})[0];
+    todo.save({class: "completed"});
+    this.hideModal();
   },
 
   showModal: function(){

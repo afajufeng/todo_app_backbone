@@ -6,7 +6,7 @@ var Todo = Backbone.Model.extend({
       month: "",
       day: "",
       description: "",
-      completed: false,
+      class: "remaining",
       date: "",
       clicked: false,
       order: todolist.nextOrder()
