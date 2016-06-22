@@ -26,7 +26,7 @@ var TodoView = Backbone.View.extend({
     e.preventDefault();
     $("#markComplete").show();
     app.showModal();
-    this.model.set({clicked: true});
+    this.model.save({clicked: true});
     this.loadDataToForm();
   },
 

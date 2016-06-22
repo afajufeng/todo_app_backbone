@@ -2,12 +2,18 @@ var AppView = Backbone.View.extend({
 
   el: $("body"),
 
+  nav_tpl: Handlebars.compile($("#nav_list_template").html()),
+
   initialize: function(){
     this.buildDate("#day", 1, 30);
     this.buildDate("#month", 1, 12);
     this.buildDate("#year", 2000, 2016);
 
     this.listenTo(todolist, "add", this.addOne);
+    this.listenTo(todolist, "all", this.render);
+
+    this.completed = todolist.completed().length;
+    this.remaining = todolist.remaining().length;
 
     todolist.fetch();
   },
@@ -17,6 +23,13 @@ var AppView = Backbone.View.extend({
     "click .modalBack": "hideModal",
     "click #save": "saveItem",
     "click #markComplete": "markComplete"
+  },
+
+  render: function(){
+    $("#todos span").html(this.remaining);
+    $("#completed span").html(this.completed);
+    $("#todos ul").html(this.nav_tpl(todolist.remainingDate()));
+    $("#completed ul").html(this.nav_tpl(todolist.completedDate()));
   },
 
   buildDate: function (period, num_start, num_end){
@@ -55,7 +68,13 @@ var AppView = Backbone.View.extend({
     array.forEach(function(element){
       item[element.name] = element.value;
     });
-    item.date = item.year + "/" + item.month + "/" + item.day;
+
+    var month = item.month;
+    var day = item.day;
+    if(month < 10) month = "0" + month;
+    if(month < 10) day = "0" + day;
+
+    item.date = item.year + "/" + month + "/" + day;
     return item;
   },
 
@@ -80,7 +99,7 @@ var AppView = Backbone.View.extend({
   hideModal: function(){
     var clicked = todolist.where({clicked: true})[0];
 
-    if(clicked){ clicked.set({clicked: false}); }
+    if(clicked){ clicked.save({clicked: false}); }
     $(".modal, .modalBack").fadeOut();
   }
 });
